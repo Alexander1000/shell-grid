@@ -10,6 +10,8 @@ namespace ShellGrid
     public:
         virtual CellType GetType() = 0;
         std::string* Output();
+        int GetWidth();
+        int GetHeight();
     };
 }
 
