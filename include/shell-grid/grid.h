@@ -13,6 +13,8 @@ namespace ShellGrid
     public:
         Grid();
         Grid(int rows, int columns);
+        void Set(int row, int column, Cell* cell);
+        Cell* Get(int row, int column);
     private:
          std::list<*RowData> data;
     };
