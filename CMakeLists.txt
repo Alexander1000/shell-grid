@@ -10,6 +10,7 @@ include_directories(
 
 set(SHELL_GRID_SHARED_SOURCES
     src/cell.cpp
+    src/grid.cpp
 )
 
 set(SHELL_GRID_SOURCES
