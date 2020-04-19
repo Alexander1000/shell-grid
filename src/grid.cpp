@@ -12,7 +12,9 @@ namespace ShellGrid
 
     void Grid::Set(int row, int column, class ShellGrid::Cell* cell)
     {
-        *this->getPointerCell(row, column) = cell;
+        RowData* rowData = this->getRow(row);
+        RowData::iterator itCell = this->getPointerCellInRow(rowData, column);
+        rowData->emplace(itCell, cell);
     }
 
     Cell* Grid::Get(int row, int column)
@@ -70,5 +72,29 @@ namespace ShellGrid
         }
 
         return rowData;
+    }
+
+    RowData::iterator Grid::getPointerCellInRow(RowData* rowData, int column)
+    {
+        int curCol = 0;
+        RowData::iterator itCols;
+
+        for (itCols = rowData->begin(); itCols != rowData->end(); ++itCols) {
+            if (curCol == column) {
+                break;
+            }
+            curCol++;
+        }
+
+        if (itCols == rowData->end()) {
+            itCols--;
+            for (int i = curCol; i < column; ++i) {
+                // @todo cell null pointer
+                rowData->push_back(new CellNumeric(0));
+                itCols++;
+            }
+        }
+
+        return itCols;
     }
 }
