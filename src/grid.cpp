@@ -33,6 +33,30 @@ namespace ShellGrid
             rowData = *itRows;
         }
 
+        if (rowData == nullptr) {
+            // @todo: throw exception
+            return;
+        }
+
         // rowData - current need row for insert
+
+        int curCol = 0;
+        RowData::iterator itCols;
+
+        for (itCols = rowData->begin(); itCols != rowData->end(); ++itCols) {
+            if (curCol == column) {
+                break;
+            }
+            curCol++;
+        }
+
+        if (itCols == rowData->end()) {
+            for (int i = curCol; i < column; ++i) {
+                // @todo cell null pointer
+                rowData->push_back(new CellNumeric(0));
+            }
+        } else {
+            *itCols = cell;
+        }
     }
 }
