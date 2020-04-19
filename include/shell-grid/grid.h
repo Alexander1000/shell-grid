@@ -17,6 +17,9 @@ namespace ShellGrid
         std::string* Output();
     private:
          std::list<RowData*> data;
+
+         int nRows;
+         int nColumns;
     };
 }
 
