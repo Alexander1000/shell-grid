@@ -9,7 +9,7 @@ namespace ShellGrid
         virtual std::string Output() = 0;
     };
 
-    class CellNumeric : Cell
+    class CellNumeric : public Cell
     {
     public:
         CellNumeric(int digit);

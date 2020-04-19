@@ -9,4 +9,9 @@ namespace ShellGrid
         this->nRows = rows;
         this->nColumns = columns;
     }
+
+    void Grid::Set(int row, int column, class ShellGrid::Cell* cell)
+    {
+
+    }
 }
