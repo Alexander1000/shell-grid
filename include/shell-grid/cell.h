@@ -13,7 +13,7 @@ namespace ShellGrid
     {
     public:
         CellNumeric(int digit);
-        std::string Output();
+        std::string Output() final;
     private:
         int digit;
     };
