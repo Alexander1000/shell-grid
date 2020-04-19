@@ -4,7 +4,7 @@
 #include <list>
 #include <shell-grid/cell.h>
 
-typedef std::list<*Cell> RowData;
+typedef std::list<ShellGrid::Cell*> RowData;
 
 namespace ShellGrid
 {
@@ -17,7 +17,7 @@ namespace ShellGrid
         Cell* Get(int row, int column);
         std::string* Output();
     private:
-         std::list<*RowData> data;
+         std::list<RowData*> data;
     };
 }
 

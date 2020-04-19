@@ -1,17 +1,21 @@
 #ifndef H_SHELL_GRID_CELL_INCLUDED
 #define H_SHELL_GRID_CELL_INCLUDED
 
-#include <shell-grid/cell-type.h>
-
 namespace ShellGrid
 {
     class Cell
     {
     public:
-        virtual CellType GetType() = 0;
-        std::string* Output();
-        int GetWidth();
-        int GetHeight();
+        virtual std::string Output() = 0;
+    };
+
+    class CellNumeric : Cell
+    {
+    public:
+        CellNumeric(int digit);
+        std::string Output();
+    private:
+        int digit;
     };
 }
 

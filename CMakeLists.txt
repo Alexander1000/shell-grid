@@ -8,8 +8,18 @@ include_directories(
     include
 )
 
+set(SHELL_GRID_SHARED_SOURCES
+    src/cell.cpp
+)
+
+set(SHELL_GRID_SOURCES
+    src/main.cpp
+    ${SHELL_GRID_SHARED_SOURCES}
+)
+
 add_executable(
     ${PROJECT_NAME} src/main.cpp
+    ${SHELL_GRID_SOURCES}
 )
 
 #############
@@ -20,8 +30,9 @@ project(shell-grid-test)
 
 set(CMAKE_BUILD_TYPE Debug)
 
-set(SCHEDULER_SOURCES_TEST
+set(SHELL_GRID_SOURCES_TEST
     tests/main.cpp
+    ${SHELL_GRID_SHARED_SOURCES}
 )
 
 include_directories(
@@ -33,6 +44,7 @@ message(STATUS "Found cpp-unit-test: ${CPP_UNIT_TEST}")
 
 add_executable(
     ${PROJECT_NAME} tests/main.cpp
+    ${SHELL_GRID_SOURCES_TEST}
 )
 
 target_link_libraries(${PROJECT_NAME}
