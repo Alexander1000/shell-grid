@@ -12,11 +12,15 @@ namespace ShellGrid
 
     void Grid::Set(int row, int column, class ShellGrid::Cell* cell)
     {
-        Cell* cur = Get(row, column);
-        *cur = cell;
+        *this->getPointerCell(row, column) = cell;
     }
 
     Cell* Grid::Get(int row, int column)
+    {
+        return *this->getPointerCell(row, column);
+    }
+
+    RowData::iterator Grid::getPointerCell(int row, int column)
     {
         int curRow = 0;
         std::list<RowData*>::iterator itRows;
@@ -39,11 +43,6 @@ namespace ShellGrid
             rowData = *itRows;
         }
 
-        if (rowData == nullptr) {
-            // @todo: throw exception
-            return nullptr;
-        }
-
         // rowData - current need row for insert
 
         int curCol = 0;
@@ -56,17 +55,15 @@ namespace ShellGrid
             curCol++;
         }
 
-        Cell* cell = nullptr;
-
         if (itCols == rowData->end()) {
+            itCols--;
             for (int i = curCol; i < column; ++i) {
                 // @todo cell null pointer
                 rowData->push_back(new CellNumeric(0));
+                itCols++;
             }
-        } else {
-            cell = *itCols;
         }
 
-        return cell;
+        return itCols;
     }
 }
