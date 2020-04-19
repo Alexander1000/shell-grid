@@ -1,6 +1,7 @@
 #ifndef H_SHELL_GRID_INCLUDED
 #define H_SHELL_GRID_INCLUDED
 
-// other includes
+#include <shell-grid/grid.h>
+#include <shell-grid/cell.h>
 
 #endif
