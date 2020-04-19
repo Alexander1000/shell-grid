@@ -63,7 +63,7 @@ namespace ShellGrid
 
         if (itRows == this->data.end()) {
             // not found row, then generate new
-            for (int i = curRow; i < row; ++i) {
+            for (int i = curRow; i < row + 1; ++i) {
                 rowData = new RowData;
                 this->data.push_back(rowData);
             }
@@ -88,7 +88,7 @@ namespace ShellGrid
 
         if (itCols == rowData->end()) {
             itCols--;
-            for (int i = curCol; i < column; ++i) {
+            for (int i = curCol; i < column + 1; ++i) {
                 // @todo cell null pointer
                 rowData->push_back(new CellNumeric(0));
                 itCols++;
