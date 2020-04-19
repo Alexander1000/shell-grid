@@ -4,6 +4,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(shell-grid)
 
+include_directories(
+    include
+)
+
 add_executable(
     ${PROJECT_NAME} src/main.cpp
 )
