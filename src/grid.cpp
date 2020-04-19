@@ -22,28 +22,7 @@ namespace ShellGrid
 
     RowData::iterator Grid::getPointerCell(int row, int column)
     {
-        int curRow = 0;
-        std::list<RowData*>::iterator itRows;
-        for (itRows = this->data.begin(); itRows != this->data.end(); ++itRows) {
-            if (curRow == row) {
-                break;
-            }
-            curRow++;
-        }
-
-        RowData* rowData = nullptr;
-
-        if (itRows == this->data.end()) {
-            // not found row, then generate new
-            for (int i = curRow; i < row; ++i) {
-                rowData = new RowData;
-                this->data.push_back(rowData);
-            }
-        } else {
-            rowData = *itRows;
-        }
-
-        // rowData - current need row for insert
+        RowData* rowData = this->getRow(row);
 
         int curCol = 0;
         RowData::iterator itCols;
@@ -65,5 +44,31 @@ namespace ShellGrid
         }
 
         return itCols;
+    }
+
+    RowData* Grid::getRow(int row)
+    {
+        int curRow = 0;
+        std::list<RowData*>::iterator itRows;
+        for (itRows = this->data.begin(); itRows != this->data.end(); ++itRows) {
+            if (curRow == row) {
+                break;
+            }
+            curRow++;
+        }
+
+        RowData* rowData = nullptr;
+
+        if (itRows == this->data.end()) {
+            // not found row, then generate new
+            for (int i = curRow; i < row; ++i) {
+                rowData = new RowData;
+                this->data.push_back(rowData);
+            }
+        } else {
+            rowData = *itRows;
+        }
+
+        return rowData;
     }
 }

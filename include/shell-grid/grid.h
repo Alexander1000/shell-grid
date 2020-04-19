@@ -21,6 +21,8 @@ namespace ShellGrid
          int nRows;
          int nColumns;
 
+         RowData* getRow(int row);
+
          RowData::iterator getPointerCell(int row, int column);
     };
 }
