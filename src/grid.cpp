@@ -37,8 +37,7 @@ namespace ShellGrid
         if (itCols == rowData->end()) {
             itCols--;
             for (int i = curCol; i < column + 1; ++i) {
-                // @todo cell null pointer
-                rowData->push_back(new CellNumeric(0));
+                rowData->push_back(new CellNull());
                 itCols++;
             }
         }
