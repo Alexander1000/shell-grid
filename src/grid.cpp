@@ -70,4 +70,9 @@ namespace ShellGrid
 
         return rowData;
     }
+
+    std::string* Grid::Output()
+    {
+        return nullptr;
+    }
 }
