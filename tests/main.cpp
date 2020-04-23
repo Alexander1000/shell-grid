@@ -14,6 +14,8 @@ CppUnitTest::TestCase* testGrid_SimpleData_Positive()
         }
     }
 
+    grid.Output();
+
     t->finish();
     return t;
 }

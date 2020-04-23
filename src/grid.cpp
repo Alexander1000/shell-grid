@@ -1,5 +1,6 @@
 #include <shell-grid.h>
 #include <list>
+#include <iostream>
 
 namespace ShellGrid
 {
@@ -73,6 +74,13 @@ namespace ShellGrid
 
     std::string* Grid::Output()
     {
+        std::list<RowData*>::iterator itRow;
+        for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
+            RowData::iterator itCell;
+            for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
+                std::cout << (*itCell)->Output() << std::endl;
+            }
+        }
         return nullptr;
     }
 }
