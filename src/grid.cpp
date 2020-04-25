@@ -151,22 +151,28 @@ namespace ShellGrid
 
             // print border
 
-            std::cout << "\u251C";
+            std::list<RowData*>::iterator itRowNext = itRow;
+            itRowNext++;
 
-            for (itColumnWidth = columnWidthMap.begin(); itColumnWidth != columnWidthMap.end(); ++itColumnWidth) {
-                for (int i = 0; i < itColumnWidth->second; ++i) {
-                    std::cout << "\u2500";
-                }
+            if (itRowNext != this->data.end()) {
 
-                itNextColumnWidth = itColumnWidth;
-                itNextColumnWidth++;
-                if (itNextColumnWidth != columnWidthMap.end()) {
-                    // cross
-                    std::cout << "\u253C";
+                std::cout << "\u251C";
+
+                for (itColumnWidth = columnWidthMap.begin(); itColumnWidth != columnWidthMap.end(); ++itColumnWidth) {
+                    for (int i = 0; i < itColumnWidth->second; ++i) {
+                        std::cout << "\u2500";
+                    }
+
+                    itNextColumnWidth = itColumnWidth;
+                    itNextColumnWidth++;
+                    if (itNextColumnWidth != columnWidthMap.end()) {
+                        // cross
+                        std::cout << "\u253C";
+                    }
                 }
+                std::cout << "\u2524";
+                std::cout << std::endl;
             }
-            std::cout << "\u2524";
-            std::cout << std::endl;
         }
 
         std::cout << "\u2514";
