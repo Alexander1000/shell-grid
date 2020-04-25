@@ -123,13 +123,33 @@ namespace ShellGrid
         std::cout << std::endl;
 
         for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
+            // print data
             std::cout << "\u2502";
+
             RowData::iterator itCell;
             for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
                 // std::cout << "\u23B8" << (*itCell)->Output() << "\u23B9";
                 std::cout << (*itCell)->Output() << "\u2502";
             }
             std::cout << "\u2502";
+            std::cout << std::endl;
+
+            // print border
+
+            std::cout << "\u251C";
+
+            for (itColumnWidth = columnWidthMap.begin(); itColumnWidth != columnWidthMap.end(); ++itColumnWidth) {
+                for (int i = 0; i < itColumnWidth->second; ++i) {
+                    std::cout << "\u2500";
+                }
+
+                itNextColumnWidth = itColumnWidth;
+                itNextColumnWidth++;
+                if (itNextColumnWidth != columnWidthMap.end()) {
+                    std::cout << "\u253C";
+                }
+            }
+            std::cout << "\u2524";
             std::cout << std::endl;
         }
 
