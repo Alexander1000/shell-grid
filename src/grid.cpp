@@ -75,8 +75,18 @@ namespace ShellGrid
     void Grid::Output()
     {
         std::list<RowData*>::iterator itRow;
+        int lengthRow = 0;
 
-        std::cout << std::endl;
+        for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
+            RowData::iterator itCell;
+            int currentLengthRow = 0;
+            for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
+                currentLengthRow += strlen((*itCell)->Output().c_str());
+            }
+            if (currentLengthRow > lengthRow) {
+                lengthRow = currentLengthRow;
+            };
+        }
 
         std::cout << "\u250C";
 
