@@ -92,11 +92,13 @@ namespace ShellGrid
         std::cout << std::endl;
 
         for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
+            std::cout << "\u2502";
             RowData::iterator itCell;
             for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
                 // std::cout << "\u23B8" << (*itCell)->Output() << "\u23B9";
                 std::cout << (*itCell)->Output() << "\u2502";
             }
+            std::cout << "\u2502";
             std::cout << std::endl;
         }
 
