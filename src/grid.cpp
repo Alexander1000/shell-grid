@@ -106,12 +106,12 @@ namespace ShellGrid
 
         std::cout << "\u250C";
 
-        for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
-            RowData::iterator itCell;
-            for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
+        std::map<int, int>::iterator itColumnWidth;
+        for (itColumnWidth = columnWidthMap.begin(); itColumnWidth != columnWidthMap.end(); ++itColumnWidth) {
+            for (int i = 0; i < itColumnWidth->second; ++i) {
                 std::cout << "\u2500";
             }
-            break;
+            std::cout << "\u252C";
         }
 
         std::cout << "\u2510";
