@@ -6,11 +6,13 @@ CppUnitTest::TestCase* testGrid_SimpleData_Positive()
     CppUnitTest::TestCase* t = new CppUnitTest::TestCase("001-simple-test");
     t->printTitle();
 
-    ShellGrid::Grid grid(6, 4);
+    int nRows = 6, nCols = 4;
 
-    for (int i = 0; i < 6; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            grid.Set(i, j, new ShellGrid::CellNumeric(i * j));
+    ShellGrid::Grid grid(nRows, nCols);
+
+    for (int i = 0; i < nRows; ++i) {
+        for (int j = 0; j < nCols; ++j) {
+            grid.Set(i, j, new ShellGrid::CellNumeric(i * nCols + j));
         }
     }
 

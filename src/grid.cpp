@@ -80,6 +80,7 @@ namespace ShellGrid
             for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
                 std::cout << (*itCell)->Output() << std::endl;
             }
+            std::cout << std::endl;
         }
         return nullptr;
     }
