@@ -4,7 +4,7 @@ Library for draw grid in shell
 
 For example:
 Code:
-```
+```c++
 #include <shell-grid.h>
 
 int main() {
