@@ -1,5 +1,6 @@
 #include <shell-grid.h>
 #include <list>
+#include <map>
 #include <iostream>
 
 namespace ShellGrid
@@ -75,17 +76,32 @@ namespace ShellGrid
     void Grid::Output()
     {
         std::list<RowData*>::iterator itRow;
+        std::map<int, int> columnWidthMap; // N column => Width
         int lengthRow = 0;
 
         for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
             RowData::iterator itCell;
             int currentLengthRow = 0;
+            int i = 0;
+            int columnWidth = 0;
             for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
-                currentLengthRow += strlen((*itCell)->Output().c_str());
+                columnWidth = strlen((*itCell)->Output().c_str());
+
+                std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(i);
+                if (itColumnWidth != columnWidthMap.end()) {
+                    if (itColumnWidth->second < columnWidth) {
+                        itColumnWidth->second = columnWidth;
+                    }
+                } else {
+                    columnWidthMap.insert(std::pair<int, int>(i, columnWidth));
+                }
+
+                currentLengthRow += columnWidth;
+                i++;
             }
             if (currentLengthRow > lengthRow) {
                 lengthRow = currentLengthRow;
-            };
+            }
         }
 
         std::cout << "\u250C";
