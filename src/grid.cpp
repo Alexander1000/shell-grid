@@ -72,7 +72,7 @@ namespace ShellGrid
         return rowData;
     }
 
-    std::string* Grid::Output()
+    void Grid::Output()
     {
         std::list<RowData*>::iterator itRow;
         for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
@@ -82,6 +82,5 @@ namespace ShellGrid
             }
             std::cout << std::endl;
         }
-        return nullptr;
     }
 }
