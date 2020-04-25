@@ -137,7 +137,13 @@ namespace ShellGrid
                         std::cout << "\x20";
                     }
                 }
-                std::cout << "\u2502";
+
+                RowData::iterator itCellNext = itCell;
+                itCellNext++;
+
+                if (itCellNext != (*itRow)->end()) {
+                    std::cout << "\u2502";
+                }
                 i++;
             }
             std::cout << "\u2502";
