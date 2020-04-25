@@ -78,7 +78,7 @@ namespace ShellGrid
         for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
             RowData::iterator itCell;
             for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
-                std::cout << (*itCell)->Output() << std::endl;
+                std::cout << (*itCell)->Output() << " | ";
             }
             std::cout << std::endl;
         }
