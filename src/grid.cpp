@@ -73,11 +73,13 @@ namespace ShellGrid
         return rowData;
     }
 
-    void Grid::Output()
+    ColumnWidthMap* Grid::getColumnWidthMap()
     {
-        std::list<RowData*>::iterator itRow;
-        std::map<int, int> columnWidthMap; // N column => Width
+        // N column => Width
+        ColumnWidthMap* columnWidthMap;
+        columnWidthMap = new ColumnWidthMap;
 
+        std::list<RowData*>::iterator itRow;
         itRow = this->data.begin();
         for (int numRow = 0; numRow < this->nRows; ++numRow) {
             if (itRow != this->data.end()) {
@@ -91,13 +93,13 @@ namespace ShellGrid
                         columnWidth = strlen((*itCell)->Output().c_str());
                     }
 
-                    std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(colNum);
-                    if (itColumnWidth != columnWidthMap.end()) {
+                    ColumnWidthMap::iterator itColumnWidth = columnWidthMap->find(colNum);
+                    if (itColumnWidth != columnWidthMap->end()) {
                         if (itColumnWidth->second < columnWidth) {
                             itColumnWidth->second = columnWidth;
                         }
                     } else {
-                        columnWidthMap.insert(std::pair<int, int>(colNum, columnWidth));
+                        columnWidthMap->insert(std::pair<int, int>(colNum, columnWidth));
                     }
 
                     if (itCell != (*itRow)->end()) {
@@ -106,11 +108,11 @@ namespace ShellGrid
                 }
             } else {
                 for (int numCol = 0; numCol < this->nColumns; ++numCol) {
-                    std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(numCol);
-                    if (itColumnWidth != columnWidthMap.end()) {
+                    ColumnWidthMap::iterator itColumnWidth = columnWidthMap->find(numCol);
+                    if (itColumnWidth != columnWidthMap->end()) {
                         continue;
                     } else {
-                        columnWidthMap.insert(std::pair<int, int>(numCol, 0));
+                        columnWidthMap->insert(std::pair<int, int>(numCol, 0));
                     }
                 }
             }
@@ -120,19 +122,27 @@ namespace ShellGrid
             }
         }
 
+        return columnWidthMap;
+    }
+
+    void Grid::Output()
+    {
+        // N column => Width
+        ColumnWidthMap* columnWidthMap = this->getColumnWidthMap();
+
         // head
 
         std::cout << "\u250C";
 
-        std::map<int, int>::iterator itColumnWidth, itNextColumnWidth;
-        for (itColumnWidth = columnWidthMap.begin(); itColumnWidth != columnWidthMap.end(); ++itColumnWidth) {
+        ColumnWidthMap::iterator itColumnWidth, itNextColumnWidth;
+        for (itColumnWidth = columnWidthMap->begin(); itColumnWidth != columnWidthMap->end(); ++itColumnWidth) {
             for (int i = 0; i < itColumnWidth->second; ++i) {
                 std::cout << "\u2500";
             }
 
             itNextColumnWidth = itColumnWidth;
             itNextColumnWidth++;
-            if (itNextColumnWidth != columnWidthMap.end()) {
+            if (itNextColumnWidth != columnWidthMap->end()) {
                 std::cout << "\u252C";
             }
         }
@@ -142,6 +152,7 @@ namespace ShellGrid
 
         // body, inner part
 
+        std::list<RowData*>::iterator itRow;
         itRow = this->data.begin();
         for (int numRow = 0;  numRow != this->nRows; ++numRow) {
             // print data
@@ -154,7 +165,7 @@ namespace ShellGrid
                 for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
                     std::string out = (*itCell)->Output();
                     std::cout << out;
-                    itColumnWidth = columnWidthMap.find(colNum);
+                    itColumnWidth = columnWidthMap->find(colNum);
                     if (itColumnWidth->second > strlen(out.c_str())) {
                         for (int j = strlen(out.c_str()); j < itColumnWidth->second; ++j) {
                             std::cout << "\x20";
@@ -173,7 +184,7 @@ namespace ShellGrid
 
             if (colNum < this->nColumns) {
                 for (int j = colNum; j < this->nColumns; ++j) {
-                    itColumnWidth = columnWidthMap.find(j);
+                    itColumnWidth = columnWidthMap->find(j);
                     for (int k = 0; k < itColumnWidth->second; ++k) {
                         std::cout << "\x20";
                     }
@@ -194,14 +205,14 @@ namespace ShellGrid
 
                 std::cout << "\u251C";
 
-                for (itColumnWidth = columnWidthMap.begin(); itColumnWidth != columnWidthMap.end(); ++itColumnWidth) {
+                for (itColumnWidth = columnWidthMap->begin(); itColumnWidth != columnWidthMap->end(); ++itColumnWidth) {
                     for (int i = 0; i < itColumnWidth->second; ++i) {
                         std::cout << "\u2500";
                     }
 
                     itNextColumnWidth = itColumnWidth;
                     itNextColumnWidth++;
-                    if (itNextColumnWidth != columnWidthMap.end()) {
+                    if (itNextColumnWidth != columnWidthMap->end()) {
                         // cross
                         std::cout << "\u253C";
                     }
@@ -217,14 +228,14 @@ namespace ShellGrid
 
         std::cout << "\u2514";
 
-        for (itColumnWidth = columnWidthMap.begin(); itColumnWidth != columnWidthMap.end(); ++itColumnWidth) {
+        for (itColumnWidth = columnWidthMap->begin(); itColumnWidth != columnWidthMap->end(); ++itColumnWidth) {
             for (int i = 0; i < itColumnWidth->second; ++i) {
                 std::cout << "\u2500";
             }
 
             itNextColumnWidth = itColumnWidth;
             itNextColumnWidth++;
-            if (itNextColumnWidth != columnWidthMap.end()) {
+            if (itNextColumnWidth != columnWidthMap->end()) {
                 std::cout << "\u2534";
             }
         }

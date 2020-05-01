@@ -2,9 +2,11 @@
 #define H_SHELL_GRID_GRID_INCLUDED
 
 #include <list>
+#include <map>
 #include <shell-grid/cell.h>
 
 typedef std::list<ShellGrid::Cell*> RowData;
+typedef std::map<int, int> ColumnWidthMap;
 
 namespace ShellGrid
 {
@@ -23,6 +25,7 @@ namespace ShellGrid
 
          RowData* getRow(int row);
          RowData::iterator getPointerCell(int row, int column);
+         ColumnWidthMap* getColumnWidthMap();
     };
 }
 
