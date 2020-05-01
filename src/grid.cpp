@@ -82,23 +82,32 @@ namespace ShellGrid
         for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
             RowData::iterator itCell;
             int currentLengthRow = 0;
-            int i = 0;
             int columnWidth = 0;
-            for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
-                columnWidth = strlen((*itCell)->Output().c_str());
 
-                std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(i);
-                if (itColumnWidth != columnWidthMap.end()) {
-                    if (itColumnWidth->second < columnWidth) {
-                        itColumnWidth->second = columnWidth;
+            itCell = (*itRow)->begin();
+            for (int colNum = 0; colNum < this->nColumns; ++colNum) {
+                if (itCell != (*itRow)->end()) {
+                    columnWidth = strlen((*itCell)->Output().c_str());
+
+                    std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(colNum);
+                    if (itColumnWidth != columnWidthMap.end()) {
+                        if (itColumnWidth->second < columnWidth) {
+                            itColumnWidth->second = columnWidth;
+                        }
+                    } else {
+                        columnWidthMap.insert(std::pair<int, int>(colNum, columnWidth));
                     }
+
+                    currentLengthRow += columnWidth;
                 } else {
-                    columnWidthMap.insert(std::pair<int, int>(i, columnWidth));
+                    currentLengthRow = 0;
                 }
 
-                currentLengthRow += columnWidth;
-                i++;
+                if (itCell != (*itRow)->end()) {
+                    itCell++;
+                }
             }
+
             if (currentLengthRow > lengthRow) {
                 lengthRow = currentLengthRow;
             }
