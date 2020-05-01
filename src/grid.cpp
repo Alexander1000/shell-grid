@@ -126,30 +126,35 @@ namespace ShellGrid
 
         // body, inner part
 
-        for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
+        itRow = this->data.begin();
+        for (int numRow = 0;  numRow != this->nRows; ++numRow) {
             // print data
             std::cout << "\u2502";
 
-            RowData::iterator itCell;
             int colNum = 0;
-            for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
-                std::string out = (*itCell)->Output();
-                std::cout << out;
-                itColumnWidth = columnWidthMap.find(colNum);
-                if (itColumnWidth->second > strlen(out.c_str())) {
-                    for (int j = strlen(out.c_str()); j < itColumnWidth->second; ++j) {
-                        std::cout << "\x20";
+
+            if (itRow != this->data.end()) {
+                RowData::iterator itCell;
+                for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
+                    std::string out = (*itCell)->Output();
+                    std::cout << out;
+                    itColumnWidth = columnWidthMap.find(colNum);
+                    if (itColumnWidth->second > strlen(out.c_str())) {
+                        for (int j = strlen(out.c_str()); j < itColumnWidth->second; ++j) {
+                            std::cout << "\x20";
+                        }
                     }
-                }
 
-                RowData::iterator itCellNext = itCell;
-                itCellNext++;
+                    RowData::iterator itCellNext = itCell;
+                    itCellNext++;
 
-                if (colNum < this->nColumns - 1) {
-                    std::cout << "\u2502";
+                    if (colNum < this->nColumns - 1) {
+                        std::cout << "\u2502";
+                    }
+                    colNum++;
                 }
-                colNum++;
             }
+
             if (colNum < this->nColumns) {
                 for (int j = colNum; j < this->nColumns; ++j) {
                     itColumnWidth = columnWidthMap.find(j);
@@ -187,6 +192,10 @@ namespace ShellGrid
                 }
                 std::cout << "\u2524";
                 std::cout << std::endl;
+            }
+
+            if (itRow != this->data.end()) {
+                itRow++;
             }
         }
 
