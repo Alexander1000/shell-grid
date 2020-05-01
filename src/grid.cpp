@@ -190,7 +190,7 @@ namespace ShellGrid
             std::list<RowData*>::iterator itRowNext = itRow;
             itRowNext++;
 
-            if (itRowNext != this->data.end()) {
+            if (numRow < this->nRows - 1) {
 
                 std::cout << "\u251C";
 
