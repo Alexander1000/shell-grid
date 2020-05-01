@@ -78,29 +78,45 @@ namespace ShellGrid
         std::list<RowData*>::iterator itRow;
         std::map<int, int> columnWidthMap; // N column => Width
 
-        for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
-            RowData::iterator itCell;
+        itRow = this->data.begin();
+        for (int numRow = 0; numRow < this->nRows; ++numRow) {
+            if (itRow != this->data.end()) {
+                RowData::iterator itCell;
 
-            itCell = (*itRow)->begin();
-            for (int colNum = 0; colNum < this->nColumns; ++colNum) {
-                int columnWidth = 0;
+                itCell = (*itRow)->begin();
+                for (int colNum = 0; colNum < this->nColumns; ++colNum) {
+                    int columnWidth = 0;
 
-                if (itCell != (*itRow)->end()) {
-                    columnWidth = strlen((*itCell)->Output().c_str());
-                }
-
-                std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(colNum);
-                if (itColumnWidth != columnWidthMap.end()) {
-                    if (itColumnWidth->second < columnWidth) {
-                        itColumnWidth->second = columnWidth;
+                    if (itCell != (*itRow)->end()) {
+                        columnWidth = strlen((*itCell)->Output().c_str());
                     }
-                } else {
-                    columnWidthMap.insert(std::pair<int, int>(colNum, columnWidth));
-                }
 
-                if (itCell != (*itRow)->end()) {
-                    itCell++;
+                    std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(colNum);
+                    if (itColumnWidth != columnWidthMap.end()) {
+                        if (itColumnWidth->second < columnWidth) {
+                            itColumnWidth->second = columnWidth;
+                        }
+                    } else {
+                        columnWidthMap.insert(std::pair<int, int>(colNum, columnWidth));
+                    }
+
+                    if (itCell != (*itRow)->end()) {
+                        itCell++;
+                    }
                 }
+            } else {
+                for (int numCol = 0; numCol < this->nColumns; ++numCol) {
+                    std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(numCol);
+                    if (itColumnWidth != columnWidthMap.end()) {
+                        continue;
+                    } else {
+                        columnWidthMap.insert(std::pair<int, int>(numCol, 0));
+                    }
+                }
+            }
+
+            if (itRow != this->data.end()) {
+                itRow++;
             }
         }
 
