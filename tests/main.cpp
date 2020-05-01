@@ -74,9 +74,9 @@ CppUnitTest::TestCase* testGrid_SimpleData3_Positive()
     return t;
 }
 
-CppUnitTest::TestCase* testGrid_SimpleData4_Positive()
+CppUnitTest::TestCase* testGrid_SingleItem_Positive()
 {
-    CppUnitTest::TestCase* t = new CppUnitTest::TestCase("004-simple-test");
+    CppUnitTest::TestCase* t = new CppUnitTest::TestCase("004-single-item-test");
     t->printTitle();
 
     int nRows = 6, nCols = 8;
@@ -84,6 +84,21 @@ CppUnitTest::TestCase* testGrid_SimpleData4_Positive()
     ShellGrid::Grid grid(nRows, nCols);
 
     grid.Set(4, 4, new ShellGrid::CellNumeric(666));
+
+    grid.Output();
+
+    t->finish();
+    return t;
+}
+
+CppUnitTest::TestCase* testGrid_EmptyGrid_Positive()
+{
+    CppUnitTest::TestCase* t = new CppUnitTest::TestCase("005-empty-grid-test");
+    t->printTitle();
+
+    int nRows = 4, nCols = 4;
+
+    ShellGrid::Grid grid(nRows, nCols);
 
     grid.Output();
 
@@ -100,7 +115,9 @@ int main() {
 
     testSuite.addTestCase(testGrid_SimpleData3_Positive());
 
-    testSuite.addTestCase(testGrid_SimpleData4_Positive());
+    testSuite.addTestCase(testGrid_SingleItem_Positive());
+
+    testSuite.addTestCase(testGrid_EmptyGrid_Positive());
 
     testSuite.printTotal();
     return 0;
