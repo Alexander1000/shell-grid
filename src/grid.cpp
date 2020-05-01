@@ -77,41 +77,34 @@ namespace ShellGrid
     {
         std::list<RowData*>::iterator itRow;
         std::map<int, int> columnWidthMap; // N column => Width
-        int lengthRow = 0;
 
         for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
             RowData::iterator itCell;
-            int currentLengthRow = 0;
-            int columnWidth = 0;
 
             itCell = (*itRow)->begin();
             for (int colNum = 0; colNum < this->nColumns; ++colNum) {
+                int columnWidth = 0;
+
                 if (itCell != (*itRow)->end()) {
                     columnWidth = strlen((*itCell)->Output().c_str());
+                }
 
-                    std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(colNum);
-                    if (itColumnWidth != columnWidthMap.end()) {
-                        if (itColumnWidth->second < columnWidth) {
-                            itColumnWidth->second = columnWidth;
-                        }
-                    } else {
-                        columnWidthMap.insert(std::pair<int, int>(colNum, columnWidth));
+                std::map<int, int>::iterator itColumnWidth = columnWidthMap.find(colNum);
+                if (itColumnWidth != columnWidthMap.end()) {
+                    if (itColumnWidth->second < columnWidth) {
+                        itColumnWidth->second = columnWidth;
                     }
-
-                    currentLengthRow += columnWidth;
                 } else {
-                    currentLengthRow = 0;
+                    columnWidthMap.insert(std::pair<int, int>(colNum, columnWidth));
                 }
 
                 if (itCell != (*itRow)->end()) {
                     itCell++;
                 }
             }
-
-            if (currentLengthRow > lengthRow) {
-                lengthRow = currentLengthRow;
-            }
         }
+
+        // head
 
         std::cout << "\u250C";
 
@@ -130,6 +123,8 @@ namespace ShellGrid
 
         std::cout << "\u2510";
         std::cout << std::endl;
+
+        // body, inner part
 
         for (itRow = this->data.begin(); itRow != this->data.end(); ++itRow) {
             // print data
