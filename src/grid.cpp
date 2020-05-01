@@ -127,11 +127,11 @@ namespace ShellGrid
             std::cout << "\u2502";
 
             RowData::iterator itCell;
-            int i = 0;
+            int colNum = 0;
             for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
                 std::string out = (*itCell)->Output();
                 std::cout << out;
-                itColumnWidth = columnWidthMap.find(i);
+                itColumnWidth = columnWidthMap.find(colNum);
                 if (itColumnWidth->second > strlen(out.c_str())) {
                     for (int j = strlen(out.c_str()); j < itColumnWidth->second; ++j) {
                         std::cout << "\x20";
@@ -141,10 +141,21 @@ namespace ShellGrid
                 RowData::iterator itCellNext = itCell;
                 itCellNext++;
 
-                if (itCellNext != (*itRow)->end()) {
+                if (colNum < this->nColumns - 1) {
                     std::cout << "\u2502";
                 }
-                i++;
+                colNum++;
+            }
+            if (colNum < this->nColumns) {
+                for (int j = colNum; j < this->nColumns; ++j) {
+                    itColumnWidth = columnWidthMap.find(j);
+                    for (int k = 0; k < itColumnWidth->second; ++k) {
+                        std::cout << "\x20";
+                    }
+                    if (j != this->nColumns - 1) {
+                        std::cout << "\u2502";
+                    }
+                }
             }
             std::cout << "\u2502";
             std::cout << std::endl;
