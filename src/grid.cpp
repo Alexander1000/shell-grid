@@ -210,21 +210,7 @@ namespace ShellGrid
 
             if (numRow < this->nRows - 1) {
 
-                std::cout << "\u251C";
-
-                for (itColumnWidth = columnWidthMap->begin(); itColumnWidth != columnWidthMap->end(); ++itColumnWidth) {
-                    for (int i = 0; i < itColumnWidth->second; ++i) {
-                        std::cout << "\u2500";
-                    }
-
-                    itNextColumnWidth = itColumnWidth;
-                    itNextColumnWidth++;
-                    if (itNextColumnWidth != columnWidthMap->end()) {
-                        // cross
-                        std::cout << "\u253C";
-                    }
-                }
-                std::cout << "\u2524";
+                this->printBorder(columnWidthMap, (char*) "\u251C", (char*) "\u2500", (char*) "\u253C", (char*) "\u2524");
                 std::cout << std::endl;
             }
 
@@ -233,21 +219,7 @@ namespace ShellGrid
             }
         }
 
-        std::cout << "\u2514";
-
-        for (itColumnWidth = columnWidthMap->begin(); itColumnWidth != columnWidthMap->end(); ++itColumnWidth) {
-            for (int i = 0; i < itColumnWidth->second; ++i) {
-                std::cout << "\u2500";
-            }
-
-            itNextColumnWidth = itColumnWidth;
-            itNextColumnWidth++;
-            if (itNextColumnWidth != columnWidthMap->end()) {
-                std::cout << "\u2534";
-            }
-        }
-
-        std::cout << "\u2518";
+        this->printBorder(columnWidthMap, (char*) "\u2514", (char*) "\u2500", (char*) "\u2534", (char*) "\u2518");
         std::cout << std::endl;
     }
 }
