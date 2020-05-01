@@ -151,14 +151,12 @@ namespace ShellGrid
         ColumnWidthMap* columnWidthMap = this->getColumnWidthMap();
 
         // head
-
         this->printBorder(columnWidthMap, (char*) "\u250C", (char*) "\u2500", (char*) "\u252C", (char*) "\u2510");
         std::cout << std::endl;
 
         ColumnWidthMap::iterator itColumnWidth, itNextColumnWidth;
 
         // body, inner part
-
         std::list<RowData*>::iterator itRow;
         itRow = this->data.begin();
         for (int numRow = 0;  numRow != this->nRows; ++numRow) {
@@ -219,6 +217,7 @@ namespace ShellGrid
             }
         }
 
+        // footer
         this->printBorder(columnWidthMap, (char*) "\u2514", (char*) "\u2500", (char*) "\u2534", (char*) "\u2518");
         std::cout << std::endl;
     }
