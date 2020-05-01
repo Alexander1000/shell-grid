@@ -26,6 +26,7 @@ namespace ShellGrid
          RowData* getRow(int row);
          RowData::iterator getPointerCell(int row, int column);
          ColumnWidthMap* getColumnWidthMap();
+         void printBorder(ColumnWidthMap* columnWidthMap, char* leftBorder, char* innerBorder, char* splitBorder, char* rightBorder);
     };
 }
 

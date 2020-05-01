@@ -125,6 +125,26 @@ namespace ShellGrid
         return columnWidthMap;
     }
 
+    void Grid::printBorder(ColumnWidthMap* columnWidthMap, char* leftBorder, char* innerBorder, char* splitBorder, char* rightBorder)
+    {
+        std::cout << leftBorder;
+
+        ColumnWidthMap::iterator itColumnWidth, itNextColumnWidth;
+        for (itColumnWidth = columnWidthMap->begin(); itColumnWidth != columnWidthMap->end(); ++itColumnWidth) {
+            for (int i = 0; i < itColumnWidth->second; ++i) {
+                std::cout << innerBorder;
+            }
+
+            itNextColumnWidth = itColumnWidth;
+            itNextColumnWidth++;
+            if (itNextColumnWidth != columnWidthMap->end()) {
+                std::cout << splitBorder;
+            }
+        }
+
+        std::cout << rightBorder;
+    }
+
     void Grid::Output()
     {
         // N column => Width
@@ -132,23 +152,10 @@ namespace ShellGrid
 
         // head
 
-        std::cout << "\u250C";
+        this->printBorder(columnWidthMap, (char*) "\u250C", (char*) "\u2500", (char*) "\u252C", (char*) "\u2510");
+        std::cout << std::endl;
 
         ColumnWidthMap::iterator itColumnWidth, itNextColumnWidth;
-        for (itColumnWidth = columnWidthMap->begin(); itColumnWidth != columnWidthMap->end(); ++itColumnWidth) {
-            for (int i = 0; i < itColumnWidth->second; ++i) {
-                std::cout << "\u2500";
-            }
-
-            itNextColumnWidth = itColumnWidth;
-            itNextColumnWidth++;
-            if (itNextColumnWidth != columnWidthMap->end()) {
-                std::cout << "\u252C";
-            }
-        }
-
-        std::cout << "\u2510";
-        std::cout << std::endl;
 
         // body, inner part
 
