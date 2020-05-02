@@ -1,6 +1,8 @@
 #ifndef H_SHELL_GRID_CELL_INCLUDED
 #define H_SHELL_GRID_CELL_INCLUDED
 
+#include <string>
+
 namespace ShellGrid
 {
     class Cell
@@ -23,6 +25,15 @@ namespace ShellGrid
         std::string Output() final;
     private:
         int digit;
+    };
+
+    class CellString : public Cell
+    {
+    public:
+        CellString(std::string s);
+        std::string Output() final;
+    private:
+        std::string value;
     };
 }
 
