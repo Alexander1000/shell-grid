@@ -1,5 +1,8 @@
 # shell grid changelog
 
+## 0.0.3
+ - add string cell
+
 ## 0.0.2
  - fix bugs while draw grid with empty cells
 
