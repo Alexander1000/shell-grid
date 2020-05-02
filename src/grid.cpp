@@ -145,6 +145,25 @@ namespace ShellGrid
         std::cout << rightBorder;
     }
 
+    void Grid::printCell(ShellGrid::Cell* cell, int width)
+    {
+        std::string out = cell->Output();
+        std::cout << out;
+
+        if (width > strlen(out.c_str())) {
+            for (int i = strlen(out.c_str()); i < width; ++i) {
+                std::cout << "\x20";
+            }
+        }
+    }
+
+    void Grid::printEmptyCell(int width)
+    {
+        for (int i = 0; i < width; ++i) {
+            std::cout << "\x20";
+        }
+    }
+
     void Grid::Output()
     {
         // N column => Width
@@ -168,14 +187,7 @@ namespace ShellGrid
             if (itRow != this->data.end()) {
                 RowData::iterator itCell;
                 for (itCell = (*itRow)->begin(); itCell != (*itRow)->end(); ++itCell) {
-                    std::string out = (*itCell)->Output();
-                    std::cout << out;
-                    itColumnWidth = columnWidthMap->find(colNum);
-                    if (itColumnWidth->second > strlen(out.c_str())) {
-                        for (int j = strlen(out.c_str()); j < itColumnWidth->second; ++j) {
-                            std::cout << "\x20";
-                        }
-                    }
+                    this->printCell((*itCell), columnWidthMap->find(colNum)->second);
 
                     RowData::iterator itCellNext = itCell;
                     itCellNext++;
@@ -189,10 +201,7 @@ namespace ShellGrid
 
             if (colNum < this->nColumns) {
                 for (int j = colNum; j < this->nColumns; ++j) {
-                    itColumnWidth = columnWidthMap->find(j);
-                    for (int k = 0; k < itColumnWidth->second; ++k) {
-                        std::cout << "\x20";
-                    }
+                    this->printEmptyCell(columnWidthMap->find(j)->second);
                     if (j != this->nColumns - 1) {
                         std::cout << "\u2502";
                     }
@@ -207,7 +216,6 @@ namespace ShellGrid
             itRowNext++;
 
             if (numRow < this->nRows - 1) {
-
                 this->printBorder(columnWidthMap, (char*) "\u251C", (char*) "\u2500", (char*) "\u253C", (char*) "\u2524");
                 std::cout << std::endl;
             }
